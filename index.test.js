@@ -20,3 +20,11 @@ test("should return an array of restaurants", async () => {
   expect(Array.isArray(response.body)).toBe(true);
   expect(response.body[0]).toHaveProperty("cuisine");
 });
+
+test("should return errors array if fields aren't provided", async () => {
+  const response = await request(app)
+    .post("/restaurants")
+    .send({ name: "qwe" });
+  expect(response.body).toHaveProperty("errors");
+  expect(Array.isArray(response.body.errors)).toBe(true);
+});
